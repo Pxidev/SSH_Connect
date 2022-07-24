@@ -1,0 +1,33 @@
+# action.yml
+name: 'SSH Connect'
+description: 'Connect and run a command through ssh'
+
+inputs:
+  HOST:
+    description: 'hostname / IP of the server'
+    required: true
+  PORT:
+    description: 'ssh port of the server'
+    required: false
+    default: 22
+  USER:
+    description: 'user of the server'
+    required: true
+  PRIVATE_SSH_KEY:
+    description: 'private ssh key registered on the server'
+    required: true
+  COMMAND:
+    description: 'command to be executed'
+    required: false
+    default: 'echo I love Open Source!'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.HOST }}
+    - ${{ inputs.PORT }}
+    - ${{ inputs.USER }}
+    - ${{ inputs.PRIVATE_SSH_KEY }}
+    - ${{ inputs.COMMAND }}
+
